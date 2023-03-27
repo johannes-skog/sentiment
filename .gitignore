@@ -1,0 +1,9 @@
+.gitsecret/keys/random_seed
+!*.secret
+.env
+.ssh
+artifacts
+.ipynb_checkpoints
+
+logs
+tokenizer
