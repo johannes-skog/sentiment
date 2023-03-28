@@ -123,8 +123,6 @@ if __name__ == "__main__":
             version=args.dataset_version,
         )
 
-    print(torch.cuda.is_available())
-
     dataset_hg = load_from_disk(dataset_path)
 
     print("setting up model")

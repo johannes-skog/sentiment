@@ -84,9 +84,9 @@ reacher.execute(
 reacher.get_artifact("sentiment.mar", "artifacts")
 ```
 
-# Deployment on a azure kubernetes cluster with torchserve
+# Deployment on an azure kubernetes cluster with torchserve
 
-## Setup K8s cluster on Azure 
+## Setup kubernetes cluster on Azure 
 
 Export envs from .env
 ```
