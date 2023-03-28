@@ -1,0 +1,15 @@
+curl -H "Content-Type: application/json" --data @sample_input2.json http://127.0.0.1:8080/v1/models/sentiment:predict
+
+curl -X DELETE "http://localhost:8081/models/sentiment"
+
+curl -v -X POST "http://localhost:8081/models?initial_workers=1&batch_size=5&maxWorkers=5&max_batch_delay=5000&synchronous=true&url=sentiment.mar"
+
+curl http://localhost:9091/models/sentiment
+
+curl -X POST -H "Content-Type: application/json" -d '["This is a test"]' http://127.0.0.1:8080/v1/models/sentiment:predict
+
+curl -v -X POST "http://torchserve.northeurope.azurecontainer.io:8081/models?initial_workers=1&batch_size=5&maxWorkers=5&max_batch_delay=5000&synchronous=true&url=sentiment.mar"
+
+curl http://torchserve.northeurope.azurecontainer.io:8081/models/sentiment
+
+curl -X POST -H "Content-Type: application/json" -d '["This is a test"]' http://127.0.0.1:9090/v1/models/sentiment:predict

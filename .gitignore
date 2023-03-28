@@ -4,6 +4,5 @@
 .ssh
 artifacts
 .ipynb_checkpoints
-
 logs
 tokenizer

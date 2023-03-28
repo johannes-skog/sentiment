@@ -25,6 +25,10 @@ if __name__ == "__main__":
         '--handler', type=str, default="handler.py",
         help="name of handler module"
     )
+    parser.add_argument(
+        '--requirements', type=str, default="requirements.txt",
+        help="path of the requirements file"
+    )
 
     args = parser.parse_args()
 
@@ -51,11 +55,13 @@ if __name__ == "__main__":
     )
 
     cmd = f"""torch-model-archiver \
+    --force\
     --model-name sentiment\
     --version {args.version}\
     --serialized-file {DESTINATION_FOLDER}/traced.pt\
     --handler {args.handler}\
     --export-path {DESTINATION_FOLDER}\
+    --requirements-file {args.requirements}\
     --extra-files {DESTINATION_FOLDER}/special_tokens_map.json,{DESTINATION_FOLDER}/tokenizer_config.json,{DESTINATION_FOLDER}/tokenizer.json"""
 
     os.system(cmd)
