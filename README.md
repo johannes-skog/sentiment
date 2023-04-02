@@ -26,7 +26,7 @@ python train.py --dataset twitter-sentiment --lock_embedding --lock_first_n_laye
 python src/train_lightning.py --config config.yaml
 ```
 
-This training version is using Low-Rank Adaptation to train only rank-decompostion matrices attached to specific layers in the network, the orignial weights of the network are frozen. This training version is also using cosine-scheduler for the learning rate.  
+This training version is using Low-Rank Adaptation to train only rank-decompostion matrices attached to specific layers in the network, the orignial weights of the network are frozen. This training version is also using cosine-scheduler for the learning rate. 16 bit precision used during training. 
 
 ### Package the model and requirements into a mar-file to make it available for torchserve, fetch the model from azureml models
 ```
