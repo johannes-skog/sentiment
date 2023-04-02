@@ -20,6 +20,14 @@ python src/setup.py --dataset_name twitter-sentiment
 python train.py --dataset twitter-sentiment --lock_embedding --lock_first_n_layers 7 --batch_size 25 --iterations 50000
 ```
 
+### To train the model with pytorch-lightning 
+
+```
+python src/train_lightning.py --config config.yaml
+```
+
+This training version is using Low-Rank Adaptation to train only rank-decompostion matrices attached to specific layers in the network, the orignial weights of the network are frozen. This training version is also using cosine-scheduler for the learning rate.  
+
 ### Package the model and requirements into a mar-file to make it available for torchserve, fetch the model from azureml models
 ```
 python package.py --model_name xlmr_sentiment_traced --version 1 --handler src/handler.py --requirements dockercontext_torchserve/requirements.txt
