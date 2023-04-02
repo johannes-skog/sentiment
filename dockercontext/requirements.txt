@@ -170,3 +170,8 @@ python-dotenv
 scp
 torchserve
 torch-model-archiver
+torchmetrics
+pytorch-lightning
+pytorch-lightning[extra]
+lightning
+peft

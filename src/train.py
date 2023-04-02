@@ -15,7 +15,6 @@ from azure.ai.ml.entities import Data
 from azure.ai.ml.constants import AssetTypes
 from util import get_ml_client, get_latest_data_version
 
-
 import azure.ai.ml._artifacts._artifact_utilities as artifact_utils
 
 DATASET_PATH = "./dataset"

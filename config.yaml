@@ -1,0 +1,538 @@
+# lightning.pytorch==2.0.0
+seed_everything: true
+trainer:
+  accelerator: auto
+  default_root_dir: artifacts
+  # resume_from_checkpoint: null # reload the model
+  max_epochs: 10
+  # track_grad_norm: 2
+  # overfit_batches: 0.01 
+  # max_steps: 100000
+  val_check_interval: 5000
+  accumulate_grad_batches: 1
+  log_every_n_steps: 1
+  enable_checkpointing: true
+  num_sanity_val_steps: 2
+  # profiler: simple
+  strategy: auto
+  devices: auto
+  num_nodes: 1
+  precision: 16
+  logger: null
+  callbacks: null
+  fast_dev_run: false
+  min_epochs: null
+  min_steps: null
+  max_time: null
+  limit_train_batches: null
+  limit_val_batches: null
+  limit_test_batches: null
+  limit_predict_batches: null
+  enable_progress_bar: null
+  enable_model_summary: null
+  gradient_clip_val: null
+  gradient_clip_algorithm: null
+  deterministic: null
+  benchmark: null
+  inference_mode: true
+  use_distributed_sampler: true
+  detect_anomaly: false
+  barebones: false
+  plugins: null
+  sync_batchnorm: false
+  reload_dataloaders_every_n_epochs: 0
+model:
+  T_0: 1000
+  T_mult: 2
+  learning_rate: 5.0e-05
+  lora: true
+  # lock_first_n_layers: 7 # not needed if we do lora
+  lock_embedding: false
+data:
+  dataset_name: twitter-sentiment
+  batch_size_train: 13
+  batch_size_val: 13
+  #batch_size_train: 2
+  #batch_size_val: 2
+  subset_validation: 1100
+  subset_train: null
+  workers: 3
+  download: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
