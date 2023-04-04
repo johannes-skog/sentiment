@@ -319,6 +319,7 @@ class SentimentXLMRModel(NLPmodel):
 
 import lightning.pytorch as pl
 import torchmetrics
+import deepspeed
 class SentimentXLMRModelLight(pl.LightningModule):
     
     def __init__(
@@ -354,8 +355,6 @@ class SentimentXLMRModelLight(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
         
-        ## acccess tensorboard
-        tensorboard = self.logger.experiment
         # tensorboard.add_histogram(...)
         
         y = self.forward(
@@ -394,6 +393,8 @@ class SentimentXLMRModelLight(pl.LightningModule):
         return l
         
     def configure_optimizers(self):
+
+        # self._opt = deepspeed.ops.adam.DeepSpeedCPUAdam(self.parameters(), lr=self._learning_rate)
 
         self._opt = torch.optim.Adam(self.parameters(), lr=self._learning_rate)
 

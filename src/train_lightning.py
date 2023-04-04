@@ -13,35 +13,19 @@ from azure.ai.ml.entities import Model
 from azure.ai.ml.constants import AssetTypes
 from azure.ai.ml.entities import Data
 from azure.ai.ml.constants import AssetTypes
-from util import get_ml_client, get_latest_data_version
+from util import get_ml_client, get_latest_data_version, download_dataset, create_traced_model
 import torchmetrics
 from lightning.pytorch.cli import LightningCLI
 import lightning.pytorch as pl
 from lightning.pytorch.demos.boring_classes import DemoModel, BoringDataModule
 from lightning.pytorch.loggers import TensorBoardLogger
 from lightning.pytorch.callbacks import ModelCheckpoint
+import deepspeed
 
 DATASET_PATH = "./dataset"
 
 def main():
     pass
-
-def download_dataset(
-    ml_client,
-    name: str,
-    destination: str,
-    version: str = None,
-):
-    if version is None:
-        version = get_latest_data_version(name)
-
-    data_info = ml_client.data.get(name=name, version=str(version))
-
-    artifact_utils.download_artifact_from_aml_uri(
-        uri=data_info.path,
-        destination=destination,
-        datastore_operation=ml_client.datastores
-    )
 
 class SentimentDataModule(pl.LightningDataModule):
     
@@ -117,26 +101,6 @@ class SentimentDataModule(pl.LightningDataModule):
         # Used to clean-up when the run is finished
         ...
 
-def create_traced_model(tokenizer, model):
-
-    dd = tokenizer(
-        ["This is a test...", "Detta är ett test..."],
-        return_tensors="pt",
-        padding=True
-    )
-
-    model.eval().cpu()
-
-    jit_model = torch.jit.trace(
-        model,
-        [
-            dd["input_ids"].to(model._device),
-            dd["attention_mask"].to(model._device)
-        ]
-    )
-
-    return jit_model
-
 def cli_main():
 
     checkpoint_callback = ModelCheckpoint(
@@ -151,6 +115,7 @@ def cli_main():
     )
 
     cli = LightningCLI(
+        save_config_overwrite=True,
         model_class=SentimentXLMRModelLight,
         trainer_class=pl.Trainer,
         datamodule_class=SentimentDataModule,
@@ -161,6 +126,7 @@ def cli_main():
                 checkpoint_callback_val
             ],
             "logger": TensorBoardLogger("artifacts", name="sentiment"),
+            # "strategy": pl.strategies.DeepSpeedStrategy(logging_batch_size_per_gpu=13),
         }
     )
     

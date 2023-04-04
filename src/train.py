@@ -13,51 +13,12 @@ from azure.ai.ml.entities import Model
 from azure.ai.ml.constants import AssetTypes
 from azure.ai.ml.entities import Data
 from azure.ai.ml.constants import AssetTypes
-from util import get_ml_client, get_latest_data_version
-
-import azure.ai.ml._artifacts._artifact_utilities as artifact_utils
+from util import get_ml_client, get_latest_data_version, download_dataset, create_traced_model
 
 DATASET_PATH = "./dataset"
 
 def main():
     pass
-
-def download_dataset(
-    ml_client,
-    name: str,
-    destination: str,
-    version: str = None,
-):
-    if version is None:
-        version = get_latest_data_version(name)
-
-    data_info = ml_client.data.get(name=name, version=str(version))
-
-    artifact_utils.download_artifact_from_aml_uri(
-        uri=data_info.path,
-        destination=destination,
-        datastore_operation=ml_client.datastores
-    )
-
-def create_traced_model(tokenizer, model):
-
-    dd = tokenizer(
-        ["This is a test...", "Detta är ett test..."],
-        return_tensors="pt",
-        padding=True
-    )
-
-    model.eval()
-
-    jit_model = torch.jit.trace(
-        model,
-        [
-            dd["input_ids"].to(model._device),
-            dd["attention_mask"].to(model._device)
-        ]
-    )
-
-    return jit_model
 
 if __name__ == "__main__":
     
