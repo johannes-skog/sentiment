@@ -1,0 +1,31 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: torchserve
+spec:
+  volumes:
+  - name: model-store
+    persistentVolumeClaim:
+      claimName: model-store-claim
+  containers:
+  - name: torchserve
+    image: pytorch/torchserve:latest-gpu
+    args: ["torchserve", "--start",  "--model-store", "/mnt/azure/model-store/", "--ts-config", "/mnt/azure/config/config.properties"]
+    ports:
+    - name: ts
+      containerPort: 8080
+    - name: ts-management
+      containerPort: 8081
+    - name: ts-metrics
+      containerPort: 8082
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: "/mnt/azure"
+        name: model-store
+    resources:
+      requests:
+        cpu: 500m
+        memory: 128Mi
+      limits:
+        cpu: 2
+        memory: 4Gi
